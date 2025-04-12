@@ -4,7 +4,7 @@ import Link from 'next/link';
 import profilePic from '../../public/profile.jpg';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import '../src/app/globals.css';
+import '../app/globals.css';
 import { useState } from 'react';
 
 export default function Dashboard() {
