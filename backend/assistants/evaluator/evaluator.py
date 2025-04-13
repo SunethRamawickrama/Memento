@@ -10,6 +10,14 @@ def main(summary, recall_questions):
     client = genai.Client()
     content = QA_PROMPT.format(summary=summary, recall_questions=recall_questions)
 
+    qa_transcript = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=content,
+    )
+
+    event_summary: Evaluation = response.parsed
+    content = GRADER_PROMPT.format(qa_transcript=qa_transcript)
+
     response = client.models.generate_content(
         model='gemini-2.0-flash',
         contents=content,

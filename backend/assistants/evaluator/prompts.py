@@ -28,6 +28,6 @@ Guidelines:
 - Evaluate each criterion and assign an appropriate score between 0 and 1.
 - Provide a balanced overall assessment that reflects both strengths and areas for improvement.
 
-Here is the conversation with the user and the question-answering assistant:
-{qa_messages}
+Here is the transcript with the user and the question-answering assistant:
+{qa_transcript}
 """
