@@ -22,7 +22,7 @@ class User(db.Model):
 class Memory(db.Model): 
     __tablename__ = 'memories'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(200), nullable=False) 
+    title = Column(String(12000), nullable=False) 
     summary = Column(String(500), nullable=True)    
     recall_questions = Column(Arr(String), nullable=True, default=[])   
     created_at = Column(DateTime, nullable=False)
