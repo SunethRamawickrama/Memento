@@ -20,5 +20,5 @@ def main(journal_entry, person):
     )
 
     event_summary: Memory = response.parsed
-    return event_summary
+    return event_summary.model_dump()
 
