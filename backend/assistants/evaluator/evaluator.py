@@ -1,12 +1,12 @@
 from google import genai
-from dotenv import load_env
+from dotenv import load_dotenv
 
 from .schema import *
 from .prompts import *
 
-load_env()
+load_dotenv()
 
-def main(summary, recall_questions):
+def qa(summary, recall_questions):
     client = genai.Client()
     content = QA_PROMPT.format(summary=summary, recall_questions=recall_questions)
 
@@ -15,9 +15,11 @@ def main(summary, recall_questions):
         contents=content,
     )
 
-    event_summary: Evaluation = response.parsed
-    content = GRADER_PROMPT.format(qa_transcript=qa_transcript)
+    return qa_transcript.text
 
+def evaluate(qa_transcript):
+    client = genai.Client() 
+    content = GRADER_PROMPT.format(qa_transcript=qa_transcript)
     response = client.models.generate_content(
         model='gemini-2.0-flash',
         contents=content,
