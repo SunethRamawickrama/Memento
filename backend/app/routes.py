@@ -6,12 +6,8 @@ from .models import Memory, db
 
 main = Blueprint('main', __name__)
 
-@main.route('/api/test', methods=['POST'])   
-def test():
-    return('test')
-    
 @main.route('/api/memories', methods=['POST'])   
-def test():
+def add_memory():
     data = request.json
     title = data.get('title')
     person = data.get('person')
@@ -31,3 +27,16 @@ def test():
     return jsonify({
         "message": "Memory added successfully"
     }), 201
+
+@main.route('/api/get-all-memories', methods=['GET'])  
+def get_all_memories():
+    try:
+        all_memories = Memory.query.all()
+        if not all_memories:
+            return jsonify([])
+        result = [{"title": memory.title, "person": memory.person, "created_at": memory.created_at}
+                   for memory in all_memories]
+        return jsonify(result)
+    except Exception as e:
+        print("Error fetching workshops:", e)
+        return jsonify([])

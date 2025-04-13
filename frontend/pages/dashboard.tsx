@@ -30,7 +30,7 @@ export default function Dashboard() {
         <Link href="/create-new-memory">
         <button className="third-color">➕ New Memory</button>
         </Link>
-        <Link href="#"><button className="third-color">👥 Connections</button></Link>
+        <Link href="/all-memories"><button className="third-color">👥 Connections</button></Link>
         <Link href="#"><button className="third-color">📊 Memory Tracker</button></Link>
       </div>
     </div>
