@@ -1,7 +1,7 @@
 
 SUMMARIZER_PROMPT =\
 """
-You are a conversation analysis expert whose task is to review a journal entry of the user to produce two distinct outputs:
+You are a conversation analysis expert whose task is to review a user's journal about a memory with {person} to produce two distinct outputs:
 
 1. A summary of the conversation that encapsulates the main themes and key points.
 2. A set of recall questions designed to test the user's memory or understanding of details from the conversation.
