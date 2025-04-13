@@ -27,8 +27,24 @@ export default function RelivePage() {
       try {
         const res = await fetch('http://localhost:5000/api/relive');
         const data = await res.json();
-        console.log('Fetched memory:', data); // Debug
-        setMemory(data);
+
+        // Fix: convert flat array of strings to array of objects
+        let processedQuestions: RecallQuestion[] = [];
+        const raw = data.recall_questions;
+        if (raw && Array.isArray(raw) && raw.length % 3 === 0) {
+          for (let i = 0; i < raw.length; i += 3) {
+            processedQuestions.push({
+              context: raw[i]?.replace('context:', '').trim() || '',
+              question: raw[i + 1]?.replace('question:', '').trim() || '',
+              answer: raw[i + 2]?.replace('answer:', '').trim() || ''
+            });
+          }
+        }
+
+        setMemory({
+          ...data,
+          recall_questions: processedQuestions
+        });
       } catch (error) {
         console.error('Error fetching memory:', error);
       }
@@ -72,7 +88,7 @@ export default function RelivePage() {
         <>
           <div className="space-y-1">
             <h1 className="text-2xl font-bold">Memory with {memory.person}</h1>
-            <p className="text-sm text-gray-600">{format(parseISO(memory.created_at), 'PPPpp')}</p>
+            {/* <p className="text-sm text-gray-600">{format(parseISO(memory.created_at), 'PPPpp')}</p> */}
           </div>
 
           <div className="space-y-6">
