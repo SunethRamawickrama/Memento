@@ -87,9 +87,9 @@ export default function RelivePage() {
             ) : (
             <button onClick={() => startRecording(index)} className="btn mt-2">🎤 Answer</button>
             )}
-      </div>
-    ))
-  ) : (
+            </div>
+            ))
+            ) : (
     <p>No recall questions available.</p>
   )}
 </div>

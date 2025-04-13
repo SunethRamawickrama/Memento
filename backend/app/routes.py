@@ -4,7 +4,7 @@ from pathlib import Path
 from io import BytesIO
 from .models import Memory, db
 
-from assistants.summarizer.summarizer import main
+from assistants.summarizer.summarizer import main as generate_summary
 import random
 
 
@@ -66,7 +66,7 @@ def relive_memory():
         journal_entry = f"{random_memory.title} with {random_memory.person}"
 
         # Call Gemini to generate recall questions
-        gemini_response = main(journal_entry)  # This returns a list with one object
+        gemini_response = generate_summary(journal_entry)  # This returns a list with one object
 
         if gemini_response and isinstance(gemini_response, list) and 'recall_questions' in gemini_response[0]:
             random_memory.recall_questions = gemini_response[0]['recall_questions']
