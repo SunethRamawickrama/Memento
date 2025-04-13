@@ -1,5 +1,5 @@
 from . import db
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime 
@@ -24,7 +24,7 @@ class Memory(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(12000), nullable=False) 
     summary = Column(String(500), nullable=True)    
-    recall_questions = Column(Arr(String), nullable=True, default=[])   
+    recall_questions = Column(Arr(JSON), nullable=True, default=[])   
     created_at = Column(DateTime, nullable=False)
     person = Column(String(100), nullable=True) 
 

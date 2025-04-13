@@ -3,7 +3,7 @@ import requests
 from pathlib import Path
 from io import BytesIO
 from .models import Memory, db
-
+import json
 from assistants.summarizer.summarizer import main as generate_summary
 import random
 
@@ -18,10 +18,16 @@ def add_memory():
 
     if not title or not person:
         return jsonify({"message": "Missing required fields"}), 400
+    
+    gemini_response = generate_summary(title, person)  # This returns a list with one object
+    print('Gemini response is getting correctly ' + gemini_response)
+
+    rec_qs = gemini_response['recall_questions']
 
     new_memory = Memory(
         title=title, 
-        person=person
+        person=person,
+        recall_questions=rec_qs
     )
     
     # Add user to session and commit to database
@@ -61,17 +67,7 @@ def relive_memory():
             return jsonify({"error": "No memories available"}), 404
 
         random_memory = random.choice(all_memories)
-
-        # Prepare journal_entry (adjust based on your actual field)
-        journal_entry = f"{random_memory.title} with {random_memory.person}"
-
-        # Call Gemini to generate recall questions
-        gemini_response = generate_summary(journal_entry)  # This returns a list with one object
-
-        if gemini_response and isinstance(gemini_response, list) and 'recall_questions' in gemini_response[0]:
-            random_memory.recall_questions = gemini_response[0]['recall_questions']
-            db.session.commit()
-
+        
         result = {
             "title": random_memory.title,
             "person": random_memory.person,
