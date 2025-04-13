@@ -27,6 +27,7 @@ export default function RelivePage() {
       try {
         const res = await fetch('http://localhost:5000/api/relive');
         const data = await res.json();
+        console.log('Fetched memory:', data); // Debug
         setMemory(data);
       } catch (error) {
         console.error('Error fetching memory:', error);
@@ -71,28 +72,32 @@ export default function RelivePage() {
         <>
           <div className="space-y-1">
             <h1 className="text-2xl font-bold">Memory with {memory.person}</h1>
-            {/* <p className="text-sm text-gray-600">{format(parseISO(memory.created_at), 'PPPpp')}</p> */}
+            <p className="text-sm text-gray-600">{format(parseISO(memory.created_at), 'PPPpp')}</p>
           </div>
 
           <div className="space-y-6">
-            {memory && memory.recall_questions && memory.recall_questions.length > 0 ? (
-                memory.recall_questions.map((q, index) => (
-            <div key={index} className="p-4 border rounded-lg bg-white shadow">
-             <p className="font-medium mb-1">{q.question}</p>
+            {memory.recall_questions && memory.recall_questions.length > 0 ? (
+              memory.recall_questions.map((q, index) => (
+                <div key={index} className="p-4 border rounded-lg bg-white shadow">
+                  <p className="font-medium mb-1">{q.question}</p>
 
-            {audioURLs[index] ? (
-                <audio controls src={audioURLs[index]} className="mt-2" />
-            ) : recordingIndex === index ? (
-            <button onClick={stopRecording} className="btn mt-2">⏹ Stop Recording</button>
+                  {audioURLs[index] ? (
+                    <audio controls src={audioURLs[index]} className="mt-2" />
+                  ) : recordingIndex === index ? (
+                    <button onClick={stopRecording} className="btn mt-2">
+                      ⏹ Stop Recording
+                    </button>
+                  ) : (
+                    <button onClick={() => startRecording(index)} className="btn mt-2">
+                      🎤 Answer
+                    </button>
+                  )}
+                </div>
+              ))
             ) : (
-            <button onClick={() => startRecording(index)} className="btn mt-2">🎤 Answer</button>
+              <p>No recall questions available.</p>
             )}
-            </div>
-            ))
-            ) : (
-    <p>No recall questions available.</p>
-  )}
-</div>
+          </div>
         </>
       ) : (
         <p>Loading memory...</p>
