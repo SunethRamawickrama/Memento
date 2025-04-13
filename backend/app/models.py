@@ -13,8 +13,6 @@ class User(db.Model):
     email = Column(String(120), unique=True, nullable=False)
     created_at = Column(DateTime, nullable=False)
 
-    memories = relationship('Memory', back_populates='user')
-
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
