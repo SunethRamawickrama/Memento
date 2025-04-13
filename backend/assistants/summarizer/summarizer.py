@@ -6,9 +6,9 @@ from schema import *
 
 load_dotenv()
 
-def main(conversation):
+def main(journal_entry):
     client = genai.Client()
-    content = SUMMARIZER_PROMPT.format(conversation=conversation)
+    content = SUMMARIZER_PROMPT.format(journal_entry=journal_entry)
 
     response = client.models.generate_content(
         model='gemini-2.0-flash',
