@@ -8,8 +8,8 @@ from assistants.summarizer.summarizer import main as generate_summary
 import random
 import tempfile
 import os
-from assistants.transcriber import main as transcribe_audio
-from assistants.evaluator import main as evaluate_recall
+from assistants.transcriber.transcriber import main as transcribe_audio
+# from assistants.evaluator.evaluator import main as evaluate_recall
 
 
 main = Blueprint('main', __name__)
@@ -24,7 +24,6 @@ def add_memory():
         return jsonify({"message": "Missing required fields"}), 400
     
     gemini_response = generate_summary(title, person)  # This returns a list with one object
-    print('Gemini response is getting correctly ' + gemini_response)
 
     rec_qs = gemini_response['recall_questions']
 
@@ -39,7 +38,7 @@ def add_memory():
     db.session.commit()
 
     return jsonify({
-        "memory": new_memory
+        "memory": gemini_response
     }), 201
 
 @main.route('/api/get-all-memories', methods=['GET'])  

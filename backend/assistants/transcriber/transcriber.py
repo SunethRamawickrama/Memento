@@ -1,7 +1,7 @@
 from google import genai
-from dotenv import load_env
+from dotenv import load_dotenv
 
-load_env()
+load_dotenv()
 
 def main(audio_file_path: str):
     client = genai.Client()
