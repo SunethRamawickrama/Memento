@@ -2,10 +2,14 @@ from flask import Blueprint, jsonify, request, send_file
 import requests
 from pathlib import Path
 from io import BytesIO
-from .models import Memory, db
+from .models import Memory, RecallResponse, db
 import json
 from assistants.summarizer.summarizer import main as generate_summary
 import random
+import tempfile
+import os
+from assistants.transcriber import main as transcribe_audio
+from assistants.evaluator import main as evaluate_recall
 
 
 main = Blueprint('main', __name__)
@@ -80,3 +84,54 @@ def relive_memory():
     except Exception as e:
         print("Error in /api/relive-memory:", e)
         return jsonify({"error": "Internal Server Error"}), 500
+    
+@main.route('/api/submit-responses', methods=['POST'])
+def submit_responses():
+    try:
+        questions = request.form.getlist('questions')
+        files = request.files.getlist('audios')
+
+        results = []
+
+        for i, file in enumerate(files):
+            q_data = json.loads(questions[i])
+            question = q_data['question']
+            expected_answer = q_data['answer']
+
+            # Save audio temporarily
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".webm") as temp_audio:
+                file.save(temp_audio.name)
+                audio_path = temp_audio.name
+
+            # Transcribe
+            transcript = transcribe_audio(audio_path)
+
+            # Evaluate with Gemini
+            analysis = evaluate_recall(question, expected_answer, transcript)
+
+            # Save to DB
+            recall_response = RecallResponse(
+                question=question,
+                expected_answer=expected_answer,
+                user_answer=transcript,
+                accuracy_score=analysis['accuracy'],
+                confidence_score=analysis.get('confidence', 0)
+            )
+            db.session.add(recall_response)
+
+            results.append({
+                "question": question,
+                "expected_answer": expected_answer,
+                "transcribed": transcript,
+                "accuracy": analysis['accuracy']
+            })
+
+            os.remove(audio_path)  # Cleanup
+
+        db.session.commit()
+
+        return jsonify(results)
+
+    except Exception as e:
+        print("Error submitting responses:", e)
+        return jsonify({"error": "Internal server error"}), 500

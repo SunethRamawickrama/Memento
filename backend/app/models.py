@@ -34,3 +34,14 @@ class Memory(db.Model):
         self.summary = summary
         self.recall_questions = recall_questions or []
         self.person = person 
+
+class RecallResponse(db.Model):
+    __tablename__ = 'recall_responses'
+    id = Column(Integer, primary_key=True)
+    question = Column(String, nullable=False)
+    expected_answer = Column(String, nullable=False)
+    user_answer = Column(String, nullable=False)
+    accuracy_score = Column(Integer)
+    confidence_score = Column(Integer)
+    memory_id = Column(Integer, ForeignKey('memories.id'))
+    memory = relationship('Memory', backref='responses')
