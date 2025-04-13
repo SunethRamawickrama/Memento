@@ -14,7 +14,7 @@ export default function AllMemoriesPage() {
   useEffect(() => {
     const fetchMemories = async () => {
       try {
-        const res = await fetch('/api/get-all-memories');
+        const res = await fetch('http://localhost:5000/api/get-all-memories');
         const data: Memory[] = await res.json();
         setMemories(data);
       } catch (error) {
