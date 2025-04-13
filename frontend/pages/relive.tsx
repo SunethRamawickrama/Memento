@@ -71,7 +71,7 @@ export default function RelivePage() {
         <>
           <div className="space-y-1">
             <h1 className="text-2xl font-bold">Memory with {memory.person}</h1>
-            <p className="text-sm text-gray-600">{format(parseISO(memory.created_at), 'PPPpp')}</p>
+            {/* <p className="text-sm text-gray-600">{format(parseISO(memory.created_at), 'PPPpp')}</p> */}
           </div>
 
           <div className="space-y-6">
