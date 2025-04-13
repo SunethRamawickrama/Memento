@@ -23,7 +23,7 @@ def add_memory():
     if not title or not person:
         return jsonify({"message": "Missing required fields"}), 400
     
-    gemini_response = generate_summary(title, person)  # This returns a list with one object
+    gemini_response = generate_summary(title, person)
 
     rec_qs = gemini_response['recall_questions']
 
