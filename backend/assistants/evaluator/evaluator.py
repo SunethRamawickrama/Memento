@@ -17,9 +17,11 @@ def qa(summary, recall_questions):
 
     return qa_transcript.text
 
-def evaluate(qa_transcript):
+def evaluate(context, recall_questions, questions, answer):
     client = genai.Client() 
-    content = GRADER_PROMPT.format(qa_transcript=qa_transcript)
+    content = GRADER_PROMPT.format(
+        context=context, recall_questions=recall_questions, question=questions, answer=answer
+    )
     response = client.models.generate_content(
         model='gemini-2.0-flash',
         contents=content,

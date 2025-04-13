@@ -28,6 +28,11 @@ Guidelines:
 - Evaluate each criterion and assign an appropriate score between 0 and 1.
 - Provide a balanced overall assessment that reflects both strengths and areas for improvement.
 
-Here is the transcript with the user and the question-answering assistant:
-{qa_transcript}
+Here's context for the question:
+Journal Entry Context: {context}
+Recorded Recall Questions: {recall_questions}
+
+Here is the question asked and the response given by the user:
+Question: {question}
+Answer: {answer}
 """
