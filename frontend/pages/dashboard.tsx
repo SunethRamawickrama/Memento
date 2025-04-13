@@ -10,6 +10,8 @@ import { useState } from 'react';
 export default function Dashboard() {
   const [date, setDate] = useState<Date | null>(new Date());
 
+  
+
   return (
     <div className="dashboard-container fourth-color">
       <div className="dashboard-header">
@@ -24,7 +26,10 @@ export default function Dashboard() {
       </div>
 
       <div className="dashboard-footer">
-        <Link href="#"><button className="third-color">➕ New Conversation</button></Link>
+    
+        <Link href="/create-new-memory">
+        <button className="third-color">➕ New Memory</button>
+        </Link>
         <Link href="#"><button className="third-color">👥 Connections</button></Link>
         <Link href="#"><button className="third-color">📊 Memory Tracker</button></Link>
       </div>
