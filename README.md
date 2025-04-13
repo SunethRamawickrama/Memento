@@ -1,1 +1,8 @@
-Read me
+Inspiration
+While numerous digital tools exist for monitoring steps and physical activity, very few applications focus on tracking memory and cognitive performance. Every day, small, meaningful moments slip away—conversations, laughter, even the quiet moments of reflection. We were inspired by the realization that memories, the very essence of who we are, are too often forgotten. Our personal experiences, as well as the struggles faced by people with memory impairments like dementia or Alzheimer’s, drove us to create an app that automatically captures and preserves life’s everyday beauty. Research has shown that Reminiscence therapy, or recalling memories, is a great source that can improve their overall well-being and reduce unwanted behaviors. Memento is our answer to ensuring that every gesture, every conversation, and every laugh remains a part of your personal legacy and persuades people to recall and relive them.
+
+What It Does
+Captures Daily Interactions: allows users to record their daily interactions and memories.
+Interactive Playback: Lets you relive your day with an interactive timeline that highlights the most touching moments.
+Assists Memory Care: Acts as a vital tool for those with memory impairments by preserving moments that are often forgotten.
+Active recall function: Prompts the user to recall their past memories and answer questions through their voice. We use Gemini to analyze the user's response and determine the confidence scores and how accurately the user was with recalling the memory. This feature is valuable in tracking the time frames and people you remember, which is a vital part for patients with dementia and Alzheimer’s.
