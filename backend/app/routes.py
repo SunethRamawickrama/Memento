@@ -35,7 +35,7 @@ def add_memory():
     db.session.commit()
 
     return jsonify({
-        "message": "Memory added successfully"
+        "memory": new_memory
     }), 201
 
 @main.route('/api/get-all-memories', methods=['GET'])  
@@ -67,7 +67,7 @@ def relive_memory():
             return jsonify({"error": "No memories available"}), 404
 
         random_memory = random.choice(all_memories)
-        
+
         result = {
             "title": random_memory.title,
             "person": random_memory.person,
