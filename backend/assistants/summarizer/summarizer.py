@@ -15,12 +15,10 @@ def main(journal_entry, person):
         contents=content,
         config={
             'response_mime_type': 'application/json',
-            'response_schema': list[Memory],
+            'response_schema': Memory,
         },
     )
 
-    print(response.text)
-
-    event_summary: list[Memory] = response.parsed
+    event_summary: Memory = response.parsed
     return event_summary
 
