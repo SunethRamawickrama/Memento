@@ -1,12 +1,11 @@
 from google import genai
 from dotenv import load_dotenv
 
-from prompts import SUMMARIZER_PROMPT
-from schema import *
+from .prompts import SUMMARIZER_PROMPT
+from .schema import *
 
 load_dotenv()
 
-# type string
 def main(journal_entry):
     client = genai.Client()
     content = SUMMARIZER_PROMPT.format(journal_entry=journal_entry)
