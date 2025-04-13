@@ -34,9 +34,16 @@ def get_all_memories():
         all_memories = Memory.query.all()
         if not all_memories:
             return jsonify([])
-        result = [{"title": memory.title, "person": memory.person, "created_at": memory.created_at}
-                   for memory in all_memories]
+        
+        result = [
+            {
+                "title": memory.title,
+                "person": memory.person,
+                "created_at": memory.created_at.isoformat()  
+            }
+            for memory in all_memories
+        ]
         return jsonify(result)
     except Exception as e:
-        print("Error fetching workshops:", e)
-        return jsonify([])
+        print("Error fetching memories:", e)
+        return jsonify({"error": "Internal server error"}), 500  
