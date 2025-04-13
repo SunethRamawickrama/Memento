@@ -4,3 +4,7 @@ requests
 flask_sqlalchemy
 flask_migrate
 flask_cors 
+
+pydantic
+google-genai
+assemblyai[extras]
