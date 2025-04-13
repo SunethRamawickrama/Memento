@@ -25,7 +25,7 @@ export default function RelivePage() {
   useEffect(() => {
     const fetchMemory = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/get-all-memories/api/relive');
+        const res = await fetch('http://localhost:5000/api/relive');
         const data = await res.json();
         setMemory(data);
       } catch (error) {
